@@ -1,30 +1,31 @@
-import { View, TouchableOpacity, Image, FlatList, Text } from 'react-native';
+import { useEffect, useState } from 'react';
+import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRoute, useNavigation } from '@react-navigation/native';
-import { Background } from '../../components/Background';
-import { GameParams } from '../../@types/navigation';
 import { Entypo } from '@expo/vector-icons';
+import { DuoCard, DuoCardProps } from '../../components/DuoCard';
 import { Heading } from '../../components/Heading';
+import { Background } from '../../components/Background';
+import { THEME } from '../../theme';
+import { GameParams } from '../../@types/navigation';
 
 import logoImg from '../../assets/logo-nlw-esports.png';
-import { THEME } from '../../theme';
+
 import { styles } from './styles';
-import { DuoCard, DuoCardProps } from '../../components/DuoCard';
-import { useEffect, useState } from 'react';
 
 export function Game() {
   const [duos, setDuos] = useState<DuoCardProps[]>([]);
 
   const navigation = useNavigation();
-  const route = useRoute();
-  const game = route.params as GameParams;
+  const router = useRoute();
+  const game = router.params as GameParams;
 
   function handleGoBack() {
     navigation.goBack();
   }
 
   useEffect(() => {
-    fetch(`http://192.168.15.92:3000/${game.id}/:id/ads`)
+    fetch(`http://192.168.0.100:3333/games/${game.id}/ads`)
       .then((response) => response.json())
       .then((data) => setDuos(data));
   }, []);
@@ -37,7 +38,7 @@ export function Game() {
             <Entypo
               name='chevron-thin-left'
               color={THEME.COLORS.CAPTION_300}
-              size={20}
+              size={24}
             />
           </TouchableOpacity>
 
@@ -61,14 +62,16 @@ export function Game() {
             <DuoCard data={item} onConnect={() => {}} />
           )}
           horizontal
-          style={[
-            duos.length > 0 ? styles.containerList : styles.emptyListContent,
+          style={styles.containerList}
+          contentContainerStyle={[
+            duos.length > 0 ? styles.contentList : styles.emptyListContent,
           ]}
-          contentContainerStyle={styles.contentList}
-          showsHorizontalScrollIndicator={false}
-          ListEmptyComponent={() => (
-            <Text style={styles.emptyListText}>Nenhum anúncio encontrado</Text>
-          )}
+          showsHorizontalScrollIndicator
+          ListEmptyComponent={
+            <Text style={styles.emptyListText}>
+              Não há anúncios publicados ainda.
+            </Text>
+          }
         />
       </SafeAreaView>
     </Background>

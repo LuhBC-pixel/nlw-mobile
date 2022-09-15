@@ -23,9 +23,10 @@ export default function App() {
     <Background>
       <StatusBar
         barStyle='light-content'
-        backgroundColor='transparente'
+        backgroundColor='transparent'
         translucent
       />
+
       {fontsLoaded ? <Routes /> : <Loading />}
     </Background>
   );
