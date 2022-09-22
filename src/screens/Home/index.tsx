@@ -19,7 +19,7 @@ export function Home() {
   }
 
   useEffect(() => {
-    fetch('http://192.168.15.92:3000/games')
+    fetch('https://nlw-server-production-254a.up.railway.app/games')
       .then((response) => response.json())
       .then((data) => setGames(data));
   }, []);

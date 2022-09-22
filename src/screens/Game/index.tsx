@@ -27,13 +27,17 @@ export function Game() {
   }
 
   async function getDiscordUser(adsId: string) {
-    fetch(`http://192.168.15.92:3000/ads/${adsId}/discord`)
+    fetch(
+      `https://nlw-server-production-254a.up.railway.app/ads/${adsId}/discord`
+    )
       .then((response) => response.json())
       .then((data) => setDiscordDuoSelected(data.discord));
   }
 
   useEffect(() => {
-    fetch(`http://192.168.15.92:3000/games/${game.id}/ads`)
+    fetch(
+      `https://nlw-server-production-254a.up.railway.app/games/${game.id}/ads`
+    )
       .then((response) => response.json())
       .then((data) => setDuos(data));
   }, []);
@@ -84,7 +88,7 @@ export function Game() {
 
         <DuoMatch
           visible={discordDuoSelected.length > 0}
-          discord='teste'
+          discord={discordDuoSelected}
           onClose={() => setDiscordDuoSelected('')}
         />
       </SafeAreaView>
