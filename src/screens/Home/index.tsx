@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Image, FlatList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { GameCard, GameCardProps } from '../../components/GameCard';
 import { Heading } from '../../components/Heading';
 import { Background } from '../../components/Background';
